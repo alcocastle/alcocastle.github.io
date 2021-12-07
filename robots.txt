@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://alcocastle.github.io/sitemap.xml

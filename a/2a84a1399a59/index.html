@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>给实拍视频加动态贴纸，Blender多功能模块组合教学（上） | 艾可堡</title>
+<meta name="keywords" content="科技" />
+<meta name="description" content="熟悉Premiere Pro或After Effects的读者朋友们可能知道，对于实拍视频的后期处理，摄像机反求跟踪是一个非常重要的功能，简单的效果譬如添加指引包装，复杂的效果好比构建AR虚拟世界，都需要基于跟踪效果来完成，而我们本期为大家带来的教程也同样需要在跟踪的基础上，为我们的实拍视频添加一个会跟随变化的动态贴纸，它甚至会跟随我们的手指变化，像真的贴纸那样随重力和惯性摆动摇晃，一起来看看是怎样实现的吧。">
+<meta name="author" content="">
+<link rel="canonical" href="https://alcocastle.github.io/a/2a84a1399a59/" />
+<meta name="msvalidate.01" content="F8E2F274161B653649F8818FD127CE87" />
+<meta name="baidu-site-verification" content="code-jiStLnBUrZ" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<link rel="preload" href="/images/logo.svg" as="image">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://alcocastle.github.io/images/logo.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.89.4" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="给实拍视频加动态贴纸，Blender多功能模块组合教学（上）" />
+<meta property="og:description" content="熟悉Premiere Pro或After Effects的读者朋友们可能知道，对于实拍视频的后期处理，摄像机反求跟踪是一个非常重要的功能，简单的效果譬如添加指引包装，复杂的效果好比构建AR虚拟世界，都需要基于跟踪效果来完成，而我们本期为大家带来的教程也同样需要在跟踪的基础上，为我们的实拍视频添加一个会跟随变化的动态贴纸，它甚至会跟随我们的手指变化，像真的贴纸那样随重力和惯性摆动摇晃，一起来看看是怎样实现的吧。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcocastle.github.io/a/2a84a1399a59/" /><meta property="og:image" content="https://alcocastle.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="article:section" content="a" />
+<meta property="article:published_time" content="2021-11-16T10:14:50&#43;08:00" />
+<meta property="article:modified_time" content="2021-11-16T10:14:50&#43;08:00" /><meta property="og:site_name" content="艾可堡" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://alcocastle.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
+
+<meta name="twitter:title" content="给实拍视频加动态贴纸，Blender多功能模块组合教学（上）"/>
+<meta name="twitter:description" content="熟悉Premiere Pro或After Effects的读者朋友们可能知道，对于实拍视频的后期处理，摄像机反求跟踪是一个非常重要的功能，简单的效果譬如添加指引包装，复杂的效果好比构建AR虚拟世界，都需要基于跟踪效果来完成，而我们本期为大家带来的教程也同样需要在跟踪的基础上，为我们的实拍视频添加一个会跟随变化的动态贴纸，它甚至会跟随我们的手指变化，像真的贴纸那样随重力和惯性摆动摇晃，一起来看看是怎样实现的吧。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "As",
+      "item": "https://alcocastle.github.io/a/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "给实拍视频加动态贴纸，Blender多功能模块组合教学（上）",
+      "item": "https://alcocastle.github.io/a/2a84a1399a59/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "给实拍视频加动态贴纸，Blender多功能模块组合教学（上）",
+  "name": "给实拍视频加动态贴纸，Blender多功能模块组合教学（上）",
+  "description": "熟悉Premiere Pro或After Effects的读者朋友们可能知道，对于实拍视频的后期处理，摄像机反求跟踪是一个非常重要的功能，简单的效果譬如添加指引包装，复杂的效果好比构建AR虚拟世界，都需要基于跟踪效果来完成，而我们本期为大家带来的教程也同样需要在跟踪的基础上，为我们的实拍视频添加一个会跟随变化的动态贴纸，它甚至会跟随我们的手指变化，像真的贴纸那样随重力和惯性摆动摇晃，一起来看看是怎样实现的吧。",
+  "keywords": [
+    "科技"
+  ],
+  "articleBody": "熟悉Premiere Pro或After Effects的读者朋友们可能知道，对于实拍视频的后期处理，摄像机反求跟踪是一个非常重要的功能，简单的效果譬如添加指引包装，复杂的效果好比构建AR虚拟世界，都需要基于跟踪效果来完成，而我们本期为大家带来的教程也同样需要在跟踪的基础上，为我们的实拍视频添加一个会跟随变化的动态贴纸，它甚至会跟随我们的手指变化，像真的贴纸那样随重力和惯性摆动摇晃，一起来看看是怎样实现的吧。 第一步：拍摄视频并进行摄像机跟踪反求 实拍视频需要注意两个小细节，第一是我们需要被摄物有一个稳定的跟踪点，比如我们的示例中使用手指来做目标，但手指上其实没有什么特别明显的跟踪点，于是我用圆珠笔在中指指腹上画了一个标记，以此来作为我们的跟踪目标。 实拍视频的第二个细节其实在我们之前教程里提及过，就是尽量使用H.264编码来拍摄视频，Blender不会出现任何问题，这对大多数可调编码格式的相机和安卓手机来说很好解决，但对系统自带相机只能拍摄H.265的苹果手机来说就是个麻烦，需要使用第三方摄影App。 拍摄完成后就需要使用Blender来进行做跟踪了，因为这次的教学需要用到最新的几何节点功能，所以我们也需要使用最新的Blender 3.1 Alpha，然后在顶端的预设面板中选择VFX→MotionTracking，也就是运动跟踪面板。\n",
+  "wordCount" : "9",
+  "inLanguage": "en",
+  "datePublished": "2021-11-16T10:14:50+08:00",
+  "dateModified": "2021-11-16T10:14:50+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://alcocastle.github.io/a/2a84a1399a59/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "艾可堡",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://alcocastle.github.io/images/logo.svg"
+    }
+  }
+}
+</script><link rel="stylesheet" href="https://alcocastle.github.io/css/comment.css">
+
+
+
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css' integrity='sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=' crossorigin='anonymous'><script async src='https://www.googletagmanager.com/gtag/js?id=G-M3K8HT3443'></script> <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M3K8HT3443');
+</script>
+<script type='text/javascript'> function downloadJsAtOnload() { setTimeout(function downloadJs() { var element = document.createElement('script'); element.setAttribute('data-ad-client', 'ca-pub-2660281922577700'); element.async = true; element.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'; document.body.appendChild(element); }, 5000); }; if (window.addEventListener) window.addEventListener('load', downloadJsAtOnload, false); else if (window.attachEvent) window.attachEvent('onload', downloadJsAtOnload); else window.onload = downloadJsAtOnload; </script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://alcocastle.github.io/" accesskey="h" title="艾可堡 (Alt + H)">
+                <img src="/images/logo.svg" alt="logo" aria-label="logo"
+                    height="35">艾可堡</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://alcocastle.github.io/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://alcocastle.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://alcocastle.github.io/a/">As</a></div>
+    <h1 class="post-title">
+      给实拍视频加动态贴纸，Blender多功能模块组合教学（上）
+    </h1>
+    <div class="post-meta"><span title='2021-11-16 10:14:50 +0800 CST'>2021-11-16</span>&nbsp;·&nbsp;1 min
+
+</div>
+  </header> 
+  <div class="post-content"><p>熟悉Premiere Pro或After Effects的读者朋友们可能知道，对于实拍视频的后期处理，摄像机反求跟踪是一个非常重要的功能，简单的效果譬如添加指引包装，复杂的效果好比构建AR虚拟世界，都需要基于跟踪效果来完成，而我们本期为大家带来的教程也同样需要在跟踪的基础上，为我们的实拍视频添加一个会跟随变化的动态贴纸，它甚至会跟随我们的手指变化，像真的贴纸那样随重力和惯性摆动摇晃，一起来看看是怎样实现的吧。 第一步：拍摄视频并进行摄像机跟踪反求 实拍视频需要注意两个小细节，第一是我们需要被摄物有一个稳定的跟踪点，比如我们的示例中使用手指来做目标，但手指上其实没有什么特别明显的跟踪点，于是我用圆珠笔在中指指腹上画了一个标记，以此来作为我们的跟踪目标。 实拍视频的第二个细节其实在我们之前教程里提及过，就是尽量使用H.264编码来拍摄视频，Blender不会出现任何问题，这对大多数可调编码格式的相机和安卓手机来说很好解决，但对系统自带相机只能拍摄H.265的苹果手机来说就是个麻烦，需要使用第三方摄影App。 拍摄完成后就需要使用Blender来进行做跟踪了，因为这次的教学需要用到最新的几何节点功能，所以我们也需要使用最新的Blender 3.1 Alpha，然后在顶端的预设面板中选择VFX→MotionTracking，也就是运动跟踪面板。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://alcocastle.github.io/tags/%E7%A7%91%E6%8A%80/">科技</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://alcocastle.github.io/a/694ed313f9ca/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>西安被列为首批城市更新试点后，未来城市发展的四大变化</span>
+  </a>
+  <a class="next" href="https://alcocastle.github.io/a/a114e44b8515/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>西安·终南山｜渭水收暮雨，秋风入古寺，梵音伴古佛，灿然遍地金</span>
+  </a>
+</nav>
+
+  </footer><br>
+<hr>
+<br>
+<div class="commentdiv">
+  <div class="commentdiv">
+    <span><h2>全部评论</h2><span>
+  </div>
+
+  <div class="comment-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="comment" id="2cac20a0e406dbad2f2b8266f">
+      <div class="avatar">
+        <img class="avatar" src="/images/ava/c91e92a7.svg" width="100%" height="100%">
+      </div>
+      <div class="comment-block">
+        <p class="user" id="a6726bb9a38549a3f2dfafcc4">
+          <span> Zestysausage  </span>
+        </p>
+        <p class="comment-text">
+          <span class="comment-text"> 新年已过，想要拥有 </span>
+        </p>
+        <p class="comment-time">
+          <span> 2021-11-19 </span>
+          <span class="comment-up">
+            <i class="fa fa-thumbs-up" aria-hidden="true"> 4 </i>
+          </span>
+        </p>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="comment" id="8d3c43b07a4acdd74f23fc9f0">
+      <div class="avatar">
+        <img class="avatar" src="/images/ava/38aa10f8.svg" width="100%" height="100%">
+      </div>
+      <div class="comment-block">
+        <p class="user" id="26de3d7a84b8e837d7ed5229c">
+          <span> pluckyWhiting3  </span>
+        </p>
+        <p class="comment-text">
+          <span class="comment-text"> 这手机好漂亮啊百次其次 </span>
+        </p>
+        <p class="comment-time">
+          <span> 2021-11-19 </span>
+          <span class="comment-up">
+            <i class="fa fa-thumbs-up" aria-hidden="true">  </i>
+          </span>
+        </p>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="comment" id="8a69e8a4153abac3fbfd59077">
+      <div class="avatar">
+        <img class="avatar" src="/images/ava/23466e75.svg" width="100%" height="100%">
+      </div>
+      <div class="comment-block">
+        <p class="user" id="56891b220e561b9c2b2fa0cb1">
+          <span> Cynicaldinosaur2  </span>
+        </p>
+        <p class="comment-text">
+          <span class="comment-text"> 看到这么多人就有点心动，支持一下。 </span>
+        </p>
+        <p class="comment-time">
+          <span> 2021-11-18 </span>
+          <span class="comment-up">
+            <i class="fa fa-thumbs-up" aria-hidden="true"> 7 </i>
+          </span>
+        </p>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="comment" id="5adf0718262ccd756c81d089c">
+      <div class="avatar">
+        <img class="avatar" src="/images/ava/4ea0c19f.svg" width="100%" height="100%">
+      </div>
+      <div class="comment-block">
+        <p class="user" id="c146e230ab6f5e524c8e1a07a">
+          <span> sugaryCheese1  </span>
+        </p>
+        <p class="comment-text">
+          <span class="comment-text"> 无钥匙启动系统的感觉挺好的，简直不要太方便 </span>
+        </p>
+        <p class="comment-time">
+          <span> 2021-11-18 </span>
+          <span class="comment-up">
+            <i class="fa fa-thumbs-up" aria-hidden="true"> 13 </i>
+          </span>
+        </p>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="comment" id="a29c266b2583a503358ec4b6d">
+      <div class="avatar">
+        <img class="avatar" src="/images/ava/c2950b29.svg" width="100%" height="100%">
+      </div>
+      <div class="comment-block">
+        <p class="user" id="76b1e24b1cff3e31b207a64a1">
+          <span> wakefulPup0  </span>
+        </p>
+        <p class="comment-text">
+          <span class="comment-text"> 这是最好的实验室么 </span>
+        </p>
+        <p class="comment-time">
+          <span> 2021-11-17 </span>
+          <span class="comment-up">
+            <i class="fa fa-thumbs-up" aria-hidden="true"> 13 </i>
+          </span>
+        </p>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="comment" id="55771074df17ef2e48f9be8f9">
+      <div class="avatar">
+        <img class="avatar" src="/images/ava/a81e440e.svg" width="100%" height="100%">
+      </div>
+      <div class="comment-block">
+        <p class="user" id="c79a0eb2be1989036c14a0ad6">
+          <span> Joyfulseagull  </span>
+        </p>
+        <p class="comment-text">
+          <span class="comment-text"> 想要多一点这种专业设备应该很重要啊 </span>
+        </p>
+        <p class="comment-time">
+          <span> 2021-11-17 </span>
+          <span class="comment-up">
+            <i class="fa fa-thumbs-up" aria-hidden="true"> 26 </i>
+          </span>
+        </p>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2021 <a href="https://alcocastle.github.io/">艾可堡</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
